@@ -9,7 +9,6 @@ namespace Congehou
         public ParticleSystem[] particles;
 
         private TimeManager m_TimeManager;
-        private bool m_TimeStopped = false;
 
         void Start()
         {

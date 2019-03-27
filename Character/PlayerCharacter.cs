@@ -20,6 +20,7 @@ namespace Congehou
         public DamageEvent onHomuraUse;
         
         //References Settings
+        public Transform cachedTransform;
         public SpriteRenderer spriteRenderer;
         public GameObject hitboxRenderer;
         public CircleCollider2D hitCollider;
@@ -70,14 +71,8 @@ namespace Congehou
         private WaitForSeconds m_FlickeringWait;
         private int m_BombsLeft = 3;
 
-        private int m_DashFirstPress = 0;
-        private bool m_ResetDash;
-        private bool m_Dead;
-        private float m_DashFirstPressTimer;
-
         private ContactFilter2D m_HitContactFilter;
         private Collider2D[] m_HitOverlapResults = new Collider2D[5];
-        private Collider2D[] m_HomuraOverlapResults = new Collider2D[40];
         private Collider2D[] m_PointOverlapResults = new Collider2D[5];
 
         private const int k_FrameInterval = 10;
@@ -172,14 +167,14 @@ namespace Congehou
 
         private void CheckForCollision()
         {
-            int hitCount = Physics2D.OverlapCircle(transform.position, 0.1f, m_HitContactFilter, m_HitOverlapResults);
+            int hitCount = hitCollider.OverlapCollider(m_HitContactFilter, m_HitOverlapResults);
             if(hitCount > 0)
                 damageable.TakeDamage();
         }
 
         public void CheckForPointCollision()
         {
-            int pointHitCount = Physics2D.OverlapCircle(transform.position, 1f, m_HitContactFilter, m_PointOverlapResults);
+            int pointHitCount = pointCollider.OverlapCollider(m_HitContactFilter, m_PointOverlapResults);
             if(pointHitCount > 0)
                 ScoreUI.GainScore(200 * pointHitCount);
         }
@@ -296,7 +291,6 @@ namespace Congehou
 
         IEnumerator DieRespawnCoroutine()
         {
-            m_Dead = true;
             ScoreUI.SaveScore();
             BackgroundMusicPlayer.Instance.MuteJustMusic();
             yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.GameOver));
@@ -306,16 +300,9 @@ namespace Congehou
 
         public void EndGame()
         {
-            StartCoroutine(End());
-        }
-
-        IEnumerator End()
-        {
             ScoreUI.SaveScore();
             BackgroundMusicPlayer.Instance.MuteJustMusic();
-            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.End));
-            yield return new WaitForSeconds(2f);
-            SceneController.TransitionToScene("Menu");
+            SceneController.WinGame();
         }
 
         public void StartFlickering()
@@ -385,22 +372,20 @@ namespace Congehou
             homuraAudioPlayer.Play();
             unityHomuraAudioPlayer.Play();
             homuraAnimator.SetTrigger("Active");
-            int hitCount = Physics2D.OverlapCircle(transform.position, 3f, m_HitContactFilter, m_HomuraOverlapResults);
+
+            Collider2D[] m_HomuraOverlapResults = Physics2D.OverlapCircleAll(transform.position, 3f, hittableLayers);
             int destroyed = 0;
-            if(hitCount > 0)
+
+            for(int i = 0; i < m_HomuraOverlapResults.Length; i++)
             {
-                for(int i = 0; i < m_HomuraOverlapResults.Length; i++)
+                if(m_HomuraOverlapResults[i].gameObject.activeInHierarchy)
                 {
-                    if(m_HomuraOverlapResults[i] != null)
-                    {
-                        m_HomuraOverlapResults[i].GetComponent<Bullet>().DestroyByHomura();
-                        destroyed++;
-                    }
+                    m_HomuraOverlapResults[i]?.GetComponent<Bullet>().DestroyByHomura();
+                    destroyed++;
                 }
             }
 
             ScoreUI.GainScore(destroyed * 2000);
-            m_HomuraOverlapResults = new Collider2D[40];
         }
     }
 }

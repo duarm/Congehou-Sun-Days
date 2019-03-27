@@ -50,5 +50,8 @@ namespace Congehou
         {
             m_TimeStopped = false;
         }
+
+        public void SectionCall()
+        {}
     }
 }

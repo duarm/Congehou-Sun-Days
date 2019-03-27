@@ -28,17 +28,17 @@ namespace Congehou
 
         public Vector2 Circular(Enemy enemy)
         {
-            return new Vector2(CalculateX(enemy) , CalculateY(enemy)) * speed;
+            return new Vector2(CalculateX(enemy) , CalculateY(enemy));
         }
 
         private float CalculateX(Enemy enemy)
         {
-            return Mathf.Cos(enemy.enemyBehaviour.LifeTime) * width;
+            return Mathf.Cos(enemy.enemyBehaviour.LifeTime) * width * speed;
         }
 
         private float CalculateY(Enemy enemy)
         {
-            return Mathf.Sin(enemy.enemyBehaviour.LifeTime) * height;
+            return Mathf.Sin(enemy.enemyBehaviour.LifeTime) * height * speed;
         }
     }
 }

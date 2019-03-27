@@ -102,6 +102,27 @@ namespace Congehou
             Instance.StartCoroutine(Instance.Transition(newSceneIndex));
         }
 
+        public static void WinGame()
+        {
+            Instance.StartCoroutine(Instance.WinGameCoroutine());
+        }
+
+        protected IEnumerator WinGameCoroutine()
+        {
+            m_Transitioning = true;
+            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.End));
+
+            inputController.Gameplay.Disable();
+            inputController.Gameplay.SetCallbacks(null);
+            inputController.Menu.Enable();
+
+            yield return SceneManager.LoadSceneAsync("Menu");
+            yield return new WaitForSeconds(2);
+            
+            yield return StartCoroutine(ScreenFader.FadeSceneIn());
+            m_Transitioning = false;
+        }
+
         //By Scene name
         protected IEnumerator Transition(string newSceneName)
         {
@@ -123,7 +144,6 @@ namespace Congehou
 
             yield return SceneManager.LoadSceneAsync(newSceneName);
             
-            ScreenFader.SetGameOverAlpha(0f);
             yield return StartCoroutine(ScreenFader.FadeSceneIn());
             m_Transitioning = false;
         }

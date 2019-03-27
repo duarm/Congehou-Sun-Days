@@ -11,14 +11,13 @@ namespace Congehou
         SerializedProperty m_OnHomuraUseProp;
 
         //References Prop
-        SerializedProperty m_InputControllerProp;
         SerializedProperty m_SpriteRendererProp;
         SerializedProperty m_HitboxRendererProp;
         SerializedProperty m_HitColliderProp;
         SerializedProperty m_PointColliderProp;
-        SerializedProperty m_TimeManagerProp;
-        SerializedProperty m_DamageableProp;
         SerializedProperty m_HomuraAnimatorProp;
+        SerializedProperty m_DamageableProp;
+        SerializedProperty m_TimeManagerProp;
 
         //Movement Prop
         SerializedProperty m_HittableLayersProp;
@@ -72,14 +71,13 @@ namespace Congehou
         readonly GUIContent m_OnHomuraUseContent = new GUIContent("On Homura Use");
 
         //References Content
-        readonly GUIContent m_InputControllerContent = new GUIContent("Input Controller");
         readonly GUIContent m_SpriteRendererContent = new GUIContent("Sprite Renderer");
         readonly GUIContent m_HitboxRendererContent = new GUIContent("Hitbox Renderer");
-        readonly GUIContent m_DamageableContent = new GUIContent("Damageable");
         readonly GUIContent m_HitColliderContent = new GUIContent("Hit Collider");
         readonly GUIContent m_PointColliderContent = new GUIContent("Point Collider");
-        readonly GUIContent m_TimeManagerContent = new GUIContent("Time Manager");
         readonly GUIContent m_HomuraAnimatorContent = new GUIContent("Homura Animator");
+        readonly GUIContent m_DamageableContent = new GUIContent("Damageable");
+        readonly GUIContent m_TimeManagerContent = new GUIContent("Time Manager");
 
         //Movement Content
         readonly GUIContent m_AccelerationContent = new GUIContent("Acceleration");
@@ -121,14 +119,13 @@ namespace Congehou
             m_OnHomuraUseProp = serializedObject.FindProperty("onHomuraUse");
 
             //References Properties
-            m_InputControllerProp = serializedObject.FindProperty("inputController");
             m_SpriteRendererProp = serializedObject.FindProperty("spriteRenderer");
             m_HitboxRendererProp = serializedObject.FindProperty("hitboxRenderer");
-            m_DamageableProp = serializedObject.FindProperty("damageable");
             m_HitColliderProp = serializedObject.FindProperty("hitCollider");
             m_PointColliderProp = serializedObject.FindProperty("pointCollider");
-            m_TimeManagerProp = serializedObject.FindProperty("timeManager");
             m_HomuraAnimatorProp = serializedObject.FindProperty("homuraAnimator");
+            m_DamageableProp = serializedObject.FindProperty("damageable");
+            m_TimeManagerProp = serializedObject.FindProperty("timeManager");
 
             //Movement Properties
             m_AccelerationProp = serializedObject.FindProperty("acceleration");
@@ -183,7 +180,6 @@ namespace Congehou
 
             if (m_ReferencesFoldout)
             {
-                EditorGUILayout.PropertyField (m_InputControllerProp, m_InputControllerContent);
                 EditorGUILayout.PropertyField (m_SpriteRendererProp, m_SpriteRendererContent);
                 EditorGUILayout.PropertyField (m_HitboxRendererProp, m_HitboxRendererContent);
                 EditorGUILayout.PropertyField (m_DamageableProp, m_DamageableContent);

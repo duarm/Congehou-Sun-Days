@@ -30,13 +30,13 @@ namespace Congehou
         public Vector2 Straight(BulletObject objectPool)
         {
             if(!moveOnlyOnStop)
-                return objectPool.bullet.GetDirection() * speed * Time.deltaTime * objectPool.bullet.GetTimeFlow();
+                return objectPool.bullet.GetDirection() * (speed * Time.deltaTime * objectPool.bullet.GetTimeFlow());
             else
             {
                 if(objectPool.bullet.GetTimeFlow() > 0)
                     return Vector2.zero;
                 else
-                    return objectPool.bullet.GetDirection() * speed * Time.deltaTime;
+                    return objectPool.bullet.GetDirection() * (speed * Time.deltaTime);
             }
         }
     }

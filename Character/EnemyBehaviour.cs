@@ -23,6 +23,7 @@ namespace Congehou
         public Enemy enemyPoolObject; //Hide variables, set by the pool
 
         //Privates
+        private Transform m_Transform;
         private WaitForSeconds m_BurstBulletGap;
         private BulletInfo m_BulletInfo;
         private float m_BulletRotationSpeed;
@@ -46,6 +47,20 @@ namespace Congehou
 
 
         #region UnityCalls
+
+        private void Awake()
+        {
+            m_TimeManager = PlayerCharacter.PlayerInstance.timeManager;
+            m_SpawnPointPosition = bulletSpawnPoint.position;
+        }
+
+        private void Start()
+        {
+            m_Transform = transform;
+            m_BurstBulletGap = new WaitForSeconds(burstGap);
+            m_BulletRotationSpeed = m_BulletInfo.pattern.rotationSpeed;
+        }
+
         private void OnEnable()
         {
             TimeManager.RegisterTimeAffectedObject(this);
@@ -63,18 +78,6 @@ namespace Congehou
         private void OnDisable()
         {
             TimeManager.UnregisterTimeAffectedObject(this);
-        }
-
-        private void Awake()
-        {
-            m_TimeManager = PlayerCharacter.PlayerInstance.timeManager;
-            m_SpawnPointPosition = bulletSpawnPoint.position;
-        }
-
-        private void Start()
-        {
-            m_BurstBulletGap = new WaitForSeconds(burstGap);
-            m_BulletRotationSpeed = m_BulletInfo.pattern.rotationSpeed;
         }
 
         void FixedUpdate()
@@ -161,7 +164,7 @@ namespace Congehou
 
         private void Shoot()
         {
-            m_BulletInfo.pool.Pop(bulletSpawnPoint.position, this.transform.position, m_BulletInfo.pattern);
+            m_BulletInfo.pool.Pop(bulletSpawnPoint.position, m_Transform.position, m_BulletInfo.pattern);
         }
         
         private void UpdateBulletSpawnPoint()
@@ -169,7 +172,7 @@ namespace Congehou
             if(!m_BulletInfo.pattern.autoRotate)
                 return;
 
-            Vector3 rotation = transform.position;
+            Vector3 rotation = m_Transform.position;
             rotation.x += Mathf.Cos(LifeTime * m_BulletRotationSpeed);
             rotation.y += Mathf.Sin(LifeTime * m_BulletRotationSpeed);
             bulletSpawnPoint.position = rotation;
@@ -184,5 +187,8 @@ namespace Congehou
         {
             m_TimeStopped = false;
         }
+
+        public void SectionCall()
+        {}
     }
 }

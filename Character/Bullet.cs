@@ -18,6 +18,7 @@ namespace Congehou
         private PlayerCharacter m_PlayerCharacter;
         private TimeManager m_TimeManager;
         private Vector2 m_MoveVector;
+        private Transform m_Transform;
 
         private Vector2 m_Direction;
         private Vector2 m_TargetPosition;
@@ -33,16 +34,21 @@ namespace Congehou
         public float LifeTime {get; set;}    //Starts to count when the object is enabled
 
         //Constants
-        const float k_OffScreenError = 0.1f;
+        const float k_OffScreenError = 0.02f;
 
         #region UnityCalls
         
         //Setted when the bullet is created
         private void Awake()
         {
-            m_CharacterController2D = GetComponent<CharacterController2D>();
             m_PlayerCharacter = PlayerCharacter.PlayerInstance;
             m_TimeManager = m_PlayerCharacter.timeManager;
+            m_Transform = transform;
+        }
+
+        private void Start() 
+        {
+            m_CharacterController2D = GetComponent<CharacterController2D>();
         }
 
         //Everytime that the bullet leaves the pool, the OnEnable is triggered
@@ -82,7 +88,7 @@ namespace Congehou
 
         public void DestroyByHomura()
         {
-            VFXController.Instance.Trigger(VFX_HASH, transform.position, 0, false, null);
+            VFXController.Instance.Trigger(VFX_HASH, m_Transform.position, 0, false, null);
             bulletPoolObject.ReturnToPool();
         }
 
@@ -114,12 +120,12 @@ namespace Congehou
 
         public void SetTargetDirection(Vector3 target)
         {
-            m_Direction = target - transform.position;
+            m_Direction = target - m_Transform.position;
         }
 
         public void SetSpawnDirection()
         {
-            m_Direction = transform.position - m_OriginPosition;
+            m_Direction = m_Transform.position - m_OriginPosition;
         }
 
         //non-normalized means that the value will increase as far as the target is
@@ -146,17 +152,6 @@ namespace Congehou
         public void UpdateRendererRotation()
         {
             spriteRenderer.transform.up = m_Direction;
-        }
-
-        //Called by the Damage Events
-        public void OnHitDamageable()
-        {
-            //VFXController.Instance.Trigger(VFX_HASH, transform.position, 0, m_SpriteRenderer.flipX, null);
-        }
-
-        public void OnHitNonDamageable()
-        {
-            //VFXController.Instance.Trigger(VFX_HASH, transform.position, 0, m_SpriteRenderer.flipX, null);
         }
 
         //Pool methods

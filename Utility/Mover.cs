@@ -7,9 +7,12 @@ namespace Congehou
     public class Mover : MonoBehaviour, ITimeObject
     {
         public Vector3 velocity;
+        public float sectionCallMultiplier;
+
         public bool m_AffectedByTime = true;
 
         private bool m_TimeStopped = false;
+        private bool m_SpeededUp = false; 
 
         private void OnEnable()
         {
@@ -37,6 +40,20 @@ namespace Congehou
         public void OnTimeStop()
         {
             m_TimeStopped = true;
+        }
+
+        public void SectionCall()
+        {
+            if(!m_SpeededUp)
+            {
+                velocity.y *= sectionCallMultiplier;
+                m_SpeededUp = true;
+            }
+            else
+            {
+                velocity.y /= sectionCallMultiplier;
+                m_SpeededUp = false;
+            }
         }
     }
 }

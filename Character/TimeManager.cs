@@ -82,6 +82,14 @@ namespace Congehou
             TimeFlow = 1;
         }
 
+        public void SpeedUp()
+        {
+            foreach(ITimeObject timeObject in m_TimeObjects)
+            {
+                timeObject.SectionCall();
+            }
+        }
+
         public void StopTime()
         {
             TimeFlow = 0;
@@ -138,5 +146,6 @@ namespace Congehou
     {
         void OnTimeStop();
         void OnTimeFlow();
+        void SectionCall();
     }
 }
