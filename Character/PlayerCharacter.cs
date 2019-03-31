@@ -7,6 +7,9 @@ using UnityEngine.Events;
 
 namespace Congehou
 {
+    /// <summary>
+    /// Control the player
+    /// </summary>
     public class PlayerCharacter : MonoBehaviour, IGameplayActions
     {
         #region Singleton
@@ -307,7 +310,7 @@ namespace Congehou
         {
             ScoreUI.SaveScore();
             BackgroundMusicPlayer.Instance.MuteJustMusic();
-            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.GameOver));
+            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.End));
             yield return new WaitForSeconds(1f);
             SceneController.TransitionToScene("Menu");
         }

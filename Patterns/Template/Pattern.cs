@@ -12,6 +12,9 @@ namespace Congehou
         Wave
     }
 
+    /// <summary>
+    /// Base pattern script, contains all the calculations that the bullet uses to move
+    /// </summary>
     public class Pattern : ScriptableObject
     {
         [Header("Properties")]

@@ -6,7 +6,9 @@ using UnityEngine.Playables;
 
 namespace Congehou
 {
-    //Level timer controls the level timer, is used to trigger sections and paused when do so
+    /// <summary>
+    ///Level timer controls the level flow, the level is divided in sections in which is triggered by this class
+    /// </summary>
     public class LevelManager : MonoBehaviour
     {
         #region Singleton
@@ -47,16 +49,14 @@ namespace Congehou
             else
                 levelTimer += Time.deltaTime;
             
+            if(m_CurrentSectionIndex == sections.Length)
+                return;
+
             if(!m_Warned)
                 WarnSection(sections[m_CurrentSectionIndex]);
 
             if(levelTimer > (m_NextSectionTime - k_Approximation) && levelTimer < (m_NextSectionTime + k_Approximation))
-            {   
-                if(m_CurrentSectionIndex == sections.Length)
-                    return;
-
                 PlaySection(sections[m_CurrentSectionIndex]);
-            }
         }
 
         private void PlaySection(Section section)

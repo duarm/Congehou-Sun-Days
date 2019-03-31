@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Congehou
 {
+    /// <summary>
+    /// Continuously move an object in one direction
+    /// </summary>
     public class Mover : MonoBehaviour, ITimeObject
     {
         //public SpriteRenderer m_RendererUpper;

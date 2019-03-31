@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Congehou
 {
+    /// <summary>
+    /// Orbitates a target
+    /// </summary>
     public class Orbitator : MonoBehaviour, ITimeObject
     {
         public GameObject orbitateAround;
@@ -15,7 +18,6 @@ namespace Congehou
 
         private float m_TimeCounter;
         private Vector3 m_MoveVector;
-        private TimeManager m_TimeManager;
 
         private bool m_TimeStopped = false;
 

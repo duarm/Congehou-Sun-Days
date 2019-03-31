@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Continuously rotate an UI element
+/// </summary>
 public class UIRotator : MonoBehaviour
 {
     public float rotateRate = .03f;
