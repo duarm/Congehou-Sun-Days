@@ -298,11 +298,18 @@ namespace Congehou
             SceneController.TransitionToScene("Menu");
         }
 
-        public void EndGame()
+        public void OnEndGame()
+        {
+            StartCoroutine(EndCoroutine());
+        }
+
+        IEnumerator EndCoroutine()
         {
             ScoreUI.SaveScore();
             BackgroundMusicPlayer.Instance.MuteJustMusic();
-            SceneController.WinGame();
+            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.GameOver));
+            yield return new WaitForSeconds(1f);
+            SceneController.TransitionToScene("Menu");
         }
 
         public void StartFlickering()

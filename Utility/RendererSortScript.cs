@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
 public class RendererSortScript : MonoBehaviour 
 {
-    private SpriteRenderer m_TempRenderer;
+    private SortingGroup m_SortingGroup;
 
 	// Use this for initialization
 	void Start ()
     {
-        m_TempRenderer = gameObject.GetComponent<SpriteRenderer>();
+        m_SortingGroup = gameObject.GetComponent<SortingGroup>();
     }
 	
 	// Update is called once per frame
 	void LateUpdate ()
     {
-        m_TempRenderer.sortingOrder = (int)(m_TempRenderer.transform.position.y * -100);
+        m_SortingGroup.sortingOrder = (int)(m_SortingGroup.transform.position.y * -100);
     }
 }

@@ -20,42 +20,49 @@ namespace Congehou
         [Header("Sections")]
         public Section[] sections;
 
-        private Coroutine m_CurrentSectionCoroutine;
         private Section m_CurrentSection;
         private float m_NextSectionTime = 0;
+        private bool m_Warned;
         private bool m_Skipped;
         private bool m_SectionPlaying = false;
         private int m_CurrentSectionIndex = 0;
         private int m_WaveCount;
+
+        private TimeManager m_TimeManager;
 
         //Constants
         const double k_Approximation = 0.1f;
 
         private void Awake() 
         {
+            m_TimeManager = TimeManager.Instance;
             s_LevelManager = this;
             m_NextSectionTime = sections[0].triggerTime;
         }
 
         private void Update()
         {
-            if(m_SectionPlaying)
+            if(m_SectionPlaying || m_TimeManager.TimeFlow == 0)
                 return;
             else
                 levelTimer += Time.deltaTime;
+            
+            if(!m_Warned)
+                WarnSection(sections[m_CurrentSectionIndex]);
 
             if(levelTimer > (m_NextSectionTime - k_Approximation) && levelTimer < (m_NextSectionTime + k_Approximation))
             {   
                 if(m_CurrentSectionIndex == sections.Length)
                     return;
 
-                m_NextSectionTime = levelTimer;
                 PlaySection(sections[m_CurrentSectionIndex]);
             }
         }
 
         private void PlaySection(Section section)
         {
+            m_NextSectionTime = levelTimer;
+
             m_SectionPlaying = true;
             m_CurrentSection = section;
             if(section.type == SectionType.DIALOGUE)
@@ -64,6 +71,12 @@ namespace Congehou
                 section.dialogue.stopped += EndDialogueSection;
             }
             section.StartSection();
+        }
+
+        private void WarnSection(Section section)
+        {
+            m_Warned = true;
+            section.Warn();
         }
 
         public void EndSpawning(Section section)
@@ -94,6 +107,7 @@ namespace Congehou
         private void EndSection()
         {
             m_SectionPlaying = false;
+            m_Warned = false;
             
             if(m_CurrentSection.onEndSection != null)
                 m_CurrentSection.onEndSection.Invoke();

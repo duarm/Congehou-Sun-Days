@@ -38,7 +38,7 @@ namespace Congehou
             switch(m_SelectedIndex)
             {
                 case 3:
-                    SceneController.TransitionToScene("DevRoom");
+                    StartCoroutine(LoadGame());
                     break;
                 case 2:
                     break;
@@ -52,6 +52,12 @@ namespace Congehou
                     #endif
                     break;
             }
+        }
+
+        IEnumerator LoadGame()
+        {
+            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.Black));
+            SceneController.TransitionToScene("DevRoom");
         }
 
         public void OnUp(InputAction.CallbackContext context)

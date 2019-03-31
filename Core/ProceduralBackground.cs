@@ -2,25 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProceduralBackground : MonoBehaviour
+namespace Congehou
 {
-    public GameObject upperCollider;
-    public BoxCollider2D bottomCollider;
-    
-    private float spawnArea;
-
-    private void Start() 
+    public class ProceduralBackground : MonoBehaviour
     {
-        spawnArea = upperCollider.transform.localScale.x;
-    }
+        public BoxCollider2D bottomCollider;
 
-    public void UpdatePosition(TriggerCall trigger)
-    {
-        trigger.transform.position = upperCollider.transform.position + transform.right * Random.Range(-spawnArea * 0.5f, spawnArea * 0.5f);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireCube(upperCollider.transform.position, new Vector3(spawnArea, 0.4f, 0));
+        public void UpdatePosition(Mover trigger)
+        {
+            Vector3 newPos = trigger.transform.position;
+            newPos.y += 22;
+            trigger.transform.position = newPos;
+        }
     }
 }

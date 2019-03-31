@@ -28,6 +28,7 @@ namespace Congehou
 
         public void StartSection()
         {
+            
             if(onStartSection != null)
                 onStartSection.Invoke();
 
@@ -47,7 +48,15 @@ namespace Congehou
             }
             else
             {
+                
+            }
+        }
 
+        public void Warn()
+        {
+            for(int i = 0; i < spawners.Count; i++)
+            {
+                spawners[i].Warn(this);
             }
         }
     }
@@ -56,11 +65,16 @@ namespace Congehou
     public class SpawnerWrapper
     {
         public EnemySpawner spawn;
-        public Transform spawnPosition;
+        public SpawnPosition spawnPoint;
 
         public void Spawn(Section section)
         {
-            spawn.StartSpawn(spawnPosition.position, section);
+            spawn.StartSpawn(spawnPoint.transform.position, section);
+        }
+
+        public void Warn(Section section)
+        {
+            spawnPoint.StartFlickering(section);
         }
     }
 }
