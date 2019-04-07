@@ -12,7 +12,7 @@ This game features 8 minutes of gameplay, 2 bad jokes, bugs and a lot of proud, 
 ## How to Play
 ### Controls
 
-[Z] Homura (Bombs) - A powerful fire attack that incinerates every bullet arround you.
+[Z] Homura (Bombs) - A powerful fire attack that incinerates every bullet around you.
 
 [X] Time Stop - Stops the time for a limited amount of time. (Ironic don't you think?)
 
