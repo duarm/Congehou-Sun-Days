@@ -1,5 +1,5 @@
 # Congehou-Sun-Days
-Made in 10 days to the Bullet Hell Game Jam #1, a game inspired by Touhou with the mechanics of the recently launched Touhou Luna Nights, in this game the time is in your advantage. Each bullet behaves differently with the time
+Made in 10 days to the Bullet Hell Game Jam #1, built on top of the bullet hell game kit also made by me, (do not use it by the way, is far from finished, you can steal the idea if you want) a game inspired by Touhou with the mechanics of the recently launched Touhou Luna Nights, in this game the time is in your advantage. Each bullet behaves differently with the time
 
 This game features 8 minutes of gameplay, 2 bad jokes, bugs and a lot of proud, thanks for playing.
 
