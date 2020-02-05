@@ -18,7 +18,7 @@ This game features 8 minutes of gameplay, 2 bad jokes, bugs and a lot of proud, 
 
 [Left-Shift] Focus - Hold Left-Shift to slow you down while show your hitbox and the range of Homura.
 
-[P] Infinite Lives. (The game is bit unfair by the end, if you're having difficult, please use this)
+[P] Infinite Lives. (The game is bit unfair by the end, if you're having trouble, please use this)
 
 ### Score System 
  You gain 200 points every 0.5 second for each bullet close to you.
