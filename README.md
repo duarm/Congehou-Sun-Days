@@ -16,7 +16,7 @@ This game features 8 minutes of gameplay, 2 bad jokes, bugs and a lot of proud, 
 
 [X] Time Stop - Stops the time for a limited amount of time. (Ironic don't you think?)
 
-[Left-Shift] Focus - Hold Left-Shift to slow you down while show your hitbox and the range of Homura.
+[Left-Shift] Focus - Hold Left-Shift to slow you down, your hitbox and the range of homura also becomes visible.
 
 [P] Infinite Lives. (The game is bit unfair by the end, if you're having trouble, please use this)
 
